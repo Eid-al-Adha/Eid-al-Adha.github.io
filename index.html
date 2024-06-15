@@ -76,9 +76,9 @@
             justify-content: center;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typewriter-effect@latest/dist/core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/typewriter-effect@latest/dist/core.js" defer></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen relative" onpointermove="createTouchEffect(event)">
     <div class="preloader" id="preloader">
@@ -86,7 +86,7 @@
     </div>
     <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full relative" id="mainContent" style="display:none;">
         <div class="flex items-center justify-start mb-6">
-            <img id="mosqueImage" src="mosque.png" alt="masjid" class="img-bottom-left">
+            <img id="mosqueImage" src="mosque.png" alt="masjid" class="img-bottom-left" loading="lazy">
             <div class="ml-4">
                 <h1 class="text-2xl font-bold typewriter" id="typewriter"></h1>
                 <p class="text-gray-600">Merayakan Idul Adha dengan penuh suka cita dan kebersamaan</p>
@@ -165,7 +165,11 @@
         const backgroundMusic = document.getElementById('backgroundMusic');
 
         function playBackgroundMusic() {
-            backgroundMusic.play();
+            backgroundMusic.play().catch(error => {
+                console.log('Autoplay prevented, waiting for user interaction:', error);
+                document.body.addEventListener('click', playBackgroundMusic, { once: true });
+                document.body.addEventListener('touchstart', playBackgroundMusic, { once: true });
+            });
         }
 
         // Start Typewriter Effect
@@ -196,7 +200,7 @@
             if (document.hidden) {
                 backgroundMusic.pause();
             } else {
-                backgroundMusic.play();
+                playBackgroundMusic();
             }
         });
 
