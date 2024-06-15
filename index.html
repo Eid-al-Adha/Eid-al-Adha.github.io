@@ -194,16 +194,18 @@
         // Prevent text selection
         document.addEventListener('selectstart', (e) => e.preventDefault());
 
-        // Wait until window is fully loaded
-        window.addEventListener('load', () => {
-            Swal.fire({
-                title: 'Selamat Hari Raya Idul Adha!',
-                text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
-                icon: 'info',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                playBackgroundMusic();
-                startTyping();
+        // Wait until the document is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.addEventListener('load', () => {
+                Swal.fire({
+                    title: 'Selamat Hari Raya Idul Adha!',
+                    text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    playBackgroundMusic();
+                    startTyping();
+                });
             });
         });
     </script>
