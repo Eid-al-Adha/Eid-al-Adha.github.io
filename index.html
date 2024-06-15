@@ -63,13 +63,28 @@
             white-space: nowrap;
             overflow: hidden;
         }
+        .preloader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/typewriter-effect@latest/dist/core.js"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen relative" onpointermove="createTouchEffect(event)">
-    <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full relative">
+    <div class="preloader" id="preloader">
+        <div>Loading...</div>
+    </div>
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full relative" id="mainContent" style="display:none;">
         <div class="flex items-center justify-start mb-6">
             <img id="mosqueImage" src="mosque.png" alt="masjid" class="img-bottom-left">
             <div class="ml-4">
@@ -82,7 +97,7 @@
             <p class="text-lg leading-relaxed">Selamat Hari Raya Idul Adha! Di momen yang penuh makna ini, mari kita bersama-sama merayakan semangat pengorbanan dan keikhlasan. Semoga Hari Raya Idul Adha membawa berkah, kedamaian, dan kebahagiaan bagi kita semua.</p>
         </div>
     </div>
-    <audio id="backgroundMusic" loop hidden>
+    <audio id="backgroundMusic" loop>
         <source src="Gema_takbir.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -198,6 +213,9 @@
         });
 
         Promise.all(imagePromises).then(() => {
+            document.getElementById('preloader').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+
             Swal.fire({
                 title: 'Selamat Hari Raya Idul Adha!',
                 text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
