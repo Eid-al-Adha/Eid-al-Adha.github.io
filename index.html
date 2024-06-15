@@ -31,6 +31,10 @@
             height: 10px;
             background: rgba(255, 87, 51, 0.7);
         }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f8ff;
@@ -141,8 +145,8 @@
 
                 anime({
                     targets: particle,
-                    left: `${x + distance * Math.cos(angle)}px`,
-                    top: `${y + distance * Math.sin(angle)}px`,
+                    left: `${x + distance * Math.cos(angle * (Math.PI / 180))}px`,
+                    top: `${y + distance * Math.sin(angle * (Math.PI / 180))}px`,
                     opacity: [1, 0],
                     easing: 'easeOutQuad', // Adjust easing function
                     duration: 1500 + Math.random() * 500, // Adjust duration with randomness
@@ -196,16 +200,14 @@
 
         // Wait until the document is fully loaded
         document.addEventListener('DOMContentLoaded', () => {
-            window.addEventListener('load', () => {
-                Swal.fire({
-                    title: 'Selamat Hari Raya Idul Adha!',
-                    text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
-                    icon: 'info',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    playBackgroundMusic();
-                    startTyping();
-                });
+            Swal.fire({
+                title: 'Selamat Hari Raya Idul Adha!',
+                text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
+                icon: 'info',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                playBackgroundMusic();
+                startTyping();
             });
         });
     </script>
