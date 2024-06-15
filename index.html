@@ -63,12 +63,18 @@
             white-space: nowrap;
             overflow: hidden;
         }
+        .no-select {
+            -webkit-user-select: none;  /* Safari */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* IE10+/Edge */
+            user-select: none;          /* Standard */
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/typewriter-effect@latest/dist/core.js"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen relative" onpointermove="createTouchEffect(event)">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen relative no-select" onpointermove="createTouchEffect(event)">
     <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full relative">
         <div class="flex items-center justify-start mb-6">
             <img id="mosqueImage" src="mosque.png" alt="masjid" class="img-bottom-left">
@@ -185,19 +191,11 @@
             }
         });
 
-        // Wait until all images are loaded
-        const images = document.querySelectorAll('img');
-        const imagePromises = Array.from(images).map(img => {
-            return new Promise((resolve) => {
-                if (img.complete) {
-                    resolve();
-                } else {
-                    img.onload = img.onerror = resolve;
-                }
-            });
-        });
+        // Prevent text selection
+        document.addEventListener('selectstart', (e) => e.preventDefault());
 
-        Promise.all(imagePromises).then(() => {
+        // Wait until window is fully loaded
+        window.addEventListener('load', () => {
             Swal.fire({
                 title: 'Selamat Hari Raya Idul Adha!',
                 text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
