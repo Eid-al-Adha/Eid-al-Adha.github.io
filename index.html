@@ -73,6 +73,15 @@
             -ms-user-select: none;      /* IE10+/Edge */
             user-select: none;          /* Standard */
         }
+
+        @media (max-width: 500px) {
+            .img-bottom-left {
+                display: none;
+            }
+            .text-container {
+                text-align: left;
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -82,7 +91,7 @@
     <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full relative">
         <div class="flex items-center justify-start mb-6">
             <img id="mosqueImage" src="mosque.png" alt="masjid" class="img-bottom-left">
-            <div class="ml-4">
+            <div class="ml-4 text-container">
                 <h1 class="text-2xl font-bold typewriter" id="typewriter"></h1>
                 <p class="text-gray-600">Merayakan Idul Adha dengan penuh suka cita dan kebersamaan</p>
                 <div id="countdown" class="countdown-text"></div>
