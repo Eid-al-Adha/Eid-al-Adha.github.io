@@ -185,19 +185,9 @@
             }
         });
 
-        // Wait until all images are loaded
-        const images = document.querySelectorAll('img');
-        const imagePromises = Array.from(images).map(img => {
-            return new Promise((resolve) => {
-                if (img.complete) {
-                    resolve();
-                } else {
-                    img.onload = img.onerror = resolve;
-                }
-            });
-        });
-
-        Promise.all(imagePromises).then(() => {
+        // Wait until image is loaded
+        const mosqueImage = document.getElementById('mosqueImage');
+        mosqueImage.onload = function() {
             Swal.fire({
                 title: 'Selamat Hari Raya Idul Adha!',
                 text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
@@ -207,7 +197,7 @@
                 playBackgroundMusic();
                 startTyping();
             });
-        });
+        };
     </script>
 </body>
 </html>
