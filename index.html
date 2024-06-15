@@ -71,7 +71,7 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen relative" onpointermove="createTouchEffect(event)">
     <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full relative">
         <div class="flex items-center justify-start mb-6">
-            <img src="mosque.png" alt="masjid" class="img-bottom-left">
+            <img id="mosqueImage" src="mosque.png" alt="masjid" class="img-bottom-left">
             <div class="ml-4">
                 <h1 class="text-2xl font-bold typewriter" id="typewriter"></h1>
                 <p class="text-gray-600">Merayakan Idul Adha dengan penuh suka cita dan kebersamaan</p>
@@ -82,7 +82,7 @@
             <p class="text-lg leading-relaxed">Selamat Hari Raya Idul Adha! Di momen yang penuh makna ini, mari kita bersama-sama merayakan semangat pengorbanan dan keikhlasan. Semoga Hari Raya Idul Adha membawa berkah, kedamaian, dan kebahagiaan bagi kita semua.</p>
         </div>
     </div>
-    <audio id="backgroundMusic" autoplay loop hidden>
+    <audio id="backgroundMusic" loop hidden>
         <source src="Gema_takbir.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -149,59 +149,31 @@
 
         const backgroundMusic = document.getElementById('backgroundMusic');
 
-        // Display SweetAlert and play music after alert is closed
-        window.onload = function() {
-            Swal.fire({
-                title: 'Selamat Hari Raya Idul Adha!',
-                text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
-                icon: 'info',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                backgroundMusic.play().catch(error => {
-                    console.log('Autoplay prevented, waiting for user interaction:', error);
-                    // Add event listeners to start music on first interaction
-                    document.body.addEventListener('click', playBackgroundMusic, { once: true });
-                    document.body.addEventListener('touchstart', playBackgroundMusic, { once: true });
-                });
-
-                // Start Typewriter Effect
-                var typewriter = new Typewriter('#typewriter', {
-                    loop: true,
-                    delay: 75,
-                    deleteSpeed: 50
-                });
-
-                function startTyping() {
-                    typewriter.typeString('Selamat Hari Raya Idul Adha')
-                        .pauseFor(2500)
-                        .deleteAll()
-                        .typeString('عيد الأضحى المبارك')
-                        .pauseFor(2500)
-                        .deleteAll()
-                        .typeString('Happy Eid al-Adha')
-                        .pauseFor(2500)
-                        .deleteAll()
-                        .typeString('ハッピーイード・アル＝アドハー')
-                        .pauseFor(2500)
-                        .deleteAll()
-                        .start();
-                }
-
-                startTyping();
-            });
-        };
-
         function playBackgroundMusic() {
             backgroundMusic.play();
         }
 
-        function showMessage() {
-            Swal.fire({
-                title: 'Selamat Hari Raya Idul Adha!',
-                text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
-                icon: 'info',
-                confirmButtonText: 'OK'
+        // Start Typewriter Effect
+        function startTyping() {
+            var typewriter = new Typewriter('#typewriter', {
+                loop: true,
+                delay: 75,
+                deleteSpeed: 50
             });
+
+            typewriter.typeString('Selamat Hari Raya Idul Adha')
+                .pauseFor(2500)
+                .deleteAll()
+                .typeString('عيد الأضحى المبارك')
+                .pauseFor(2500)
+                .deleteAll()
+                .typeString('Happy Eid al-Adha')
+                .pauseFor(2500)
+                .deleteAll()
+                .typeString('ハッピーイード・アル＝アドハー')
+                .pauseFor(2500)
+                .deleteAll()
+                .start();
         }
 
         // Pause music when tab is inactive, play music when tab is active
@@ -212,6 +184,20 @@
                 backgroundMusic.play();
             }
         });
+
+        // Wait until image is loaded
+        const mosqueImage = document.getElementById('mosqueImage');
+        mosqueImage.onload = function() {
+            Swal.fire({
+                title: 'Selamat Hari Raya Idul Adha!',
+                text: 'Semoga kita semua mendapat berkah dan rahmat dari Allah SWT.',
+                icon: 'info',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                playBackgroundMusic();
+                startTyping();
+            });
+        };
     </script>
 </body>
 </html>
